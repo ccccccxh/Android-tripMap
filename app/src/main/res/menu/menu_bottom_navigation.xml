@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/item_news"
+        android:icon="@mipmap/ic_globe_64"
+        android:title="足迹" />
+    <item
+        android:id="@+id/item_lib"
+        android:icon="@mipmap/ic_list_64"
+        android:title="时光轴" />
+    <item
+        android:id="@+id/item_find"
+        android:icon="@mipmap/ic_user_64"
+        android:title="我的" />
+</menu>
