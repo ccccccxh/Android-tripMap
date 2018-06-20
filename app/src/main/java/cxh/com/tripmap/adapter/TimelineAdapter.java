@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import cxh.com.tripmap.R;
@@ -18,6 +20,7 @@ import cxh.com.tripmap.dto.LineList;
 
 public class TimelineAdapter extends  RecyclerView.Adapter<TimelineAdapter.ViewHolder> {
 
+    private static final DateFormat FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     private List<LineList> list=null;
     private static final int TYPE_TOP = 0;
     private static final int TYPE_BOTTOM = 1;
@@ -105,7 +108,7 @@ public class TimelineAdapter extends  RecyclerView.Adapter<TimelineAdapter.ViewH
         }
 
         public void bindHolder(LineList lineList) {
-            time.setText(lineList.getTime());
+            time.setText(FORMAT.format(lineList.getTime()));
             site.setText(lineList.getSite());
         }
 

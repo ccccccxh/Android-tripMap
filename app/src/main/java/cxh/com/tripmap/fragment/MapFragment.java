@@ -76,6 +76,7 @@ public class MapFragment extends Fragment {
     public void onStart() {
         super.onStart();
         initData();
+        Log.e("MapFragment","onStart");
     }
 
     private void initData(){

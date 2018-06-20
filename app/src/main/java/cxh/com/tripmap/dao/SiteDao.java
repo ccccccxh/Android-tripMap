@@ -35,7 +35,7 @@ public class SiteDao {
                 new String[]{"id", "site", "time", "longitude", "latitude"},
                 null,null,
                 null, null,
-                "time asc");
+                "time desc");
 
         while (cursor.moveToNext()) {
             SiteBean siteBean = new SiteBean();

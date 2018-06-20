@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +58,7 @@ public class BaseFragment extends Fragment {
     public void onStart() {
         super.onStart();
         initData();
+        Log.e("BaseFragment","onStart");
     }
 
     private void initData(){

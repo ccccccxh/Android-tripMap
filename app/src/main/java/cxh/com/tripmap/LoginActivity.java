@@ -37,24 +37,25 @@ public class LoginActivity extends AppCompatActivity {
                 String pass = password.getText().toString();
                 FormBody formBody = new FormBody.Builder()
                 .add("phone",userName).add("password",pass).build();
-                HttpUtil.getInstance().post("http://140.143.225.154:8081/user/login",formBody, new HttpCallbackListener() {
+                HttpUtil.getInstance().post("http://140.143.225.154:8081/user/login",
+                        formBody, new HttpCallbackListener() {
 
-                @Override
-                public void onFinish(String response) {
-                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                    startActivity(intent);
-                }
+                    @Override
+                    public void onFinish(String response) {
+                        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                        startActivity(intent);
+                    }
 
-                @Override
-                public void onError(final Exception e) {
-                    super.onError(e);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(LoginActivity.this,e.toString(),Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
+                    @Override
+                    public void onError(final Exception e) {
+                        super.onError(e);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(LoginActivity.this,e.toString(),Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
             });
             }
         });

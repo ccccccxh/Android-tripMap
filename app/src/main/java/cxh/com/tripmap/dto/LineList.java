@@ -8,31 +8,24 @@ import java.util.Date;
 
 public class LineList {
 //    private int id;
-    private String time;
+//    private String time;
+    private Date time;
     private String site;
 
     public LineList(){
 
     }
 
-    public LineList(String time, String site) {
+    public LineList(Date time, String site) {
         this.time = time;
         this.site = site;
     }
 
-//    public int getId() {
-//        return id;
-//    }
-//
-//    public void setId(int id) {
-//        this.id = id;
-//    }
-
-    public String getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 

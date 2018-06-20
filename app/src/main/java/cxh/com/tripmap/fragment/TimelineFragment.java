@@ -1,14 +1,17 @@
 package cxh.com.tripmap.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,12 +71,28 @@ public class TimelineFragment extends Fragment {
                 Toast.makeText(getContext(),"长按可删除该条足迹", Toast.LENGTH_SHORT).show();
             }
             @Override
-            public void onLongClick(int position) {
-                siteDao = new SiteDao(getContext());
-                SiteBean siteBean = siteBeanList.get(position);
-                siteDao.delete(String.valueOf(siteBean.getId()));
-                Toast.makeText(getContext(),"您已删除该条足迹",Toast.LENGTH_SHORT).show();
-                initData();
+            public void onLongClick(final int position) {
+                //实例化一个对话框
+                AlertDialog.Builder msg = new AlertDialog.Builder(getContext());
+                msg.setPositiveButton("是", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        siteDao = new SiteDao(getContext());
+                        SiteBean siteBean = siteBeanList.get(position);
+                        siteDao.delete(String.valueOf(siteBean.getId()));
+                        Toast.makeText(getContext(),"您已删除该条足迹",Toast.LENGTH_SHORT).show();
+                        initData();
+                    }
+                });
+                msg.setNegativeButton("否", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                msg.setMessage("您是否要删除该条足迹");
+                msg.setTitle("提示");
+                msg.show();
             }
         });
 
@@ -84,6 +103,7 @@ public class TimelineFragment extends Fragment {
     public void onStart() {
         super.onStart();
         initData();
+        Log.e("TimelineFragment","onStart");
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -93,19 +113,21 @@ public class TimelineFragment extends Fragment {
         siteBeanList = siteDao.getList();
         for (int i = 0; i < siteBeanList.size(); i++) {
             SiteBean tmp = siteBeanList.get(i);
-            list.add(new LineList(FORMAT.format(tmp.getTime()),tmp.getSite()));
+//            list.add(new LineList(FORMAT.format(tmp.getTime()),tmp.getSite()));
+            list.add(new LineList(tmp.getTime(),tmp.getSite()));
         }
-        list.sort(new Comparator<LineList>() {
-            @Override
-            public int compare(LineList lineList, LineList t1) {
-                try {
-                   return FORMAT.parse(lineList.getTime()).getTime() > FORMAT.parse(t1.getTime()).getTime() ? -1 : 1;
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                return 1;
-            }
-        });
+//        list.sort(new Comparator<LineList>() {
+//            @Override
+//            public int compare(LineList lineList, LineList t1) {
+////                try {
+//                    return lineList.getTime().getTime() > t1.getTime().getTime() ? -1 : 1;
+////                   return FORMAT.parse(lineList.getTime()).getTime() > FORMAT.parse(t1.getTime()).getTime() ? -1 : 1;
+////                } catch (ParseException e) {
+////                    e.printStackTrace();
+////                }
+////                return 1;
+//            }
+//        });
         if(mAdapter == null) {
             mAdapter = new TimelineAdapter(this.getContext(), list);
             recyclerView.setAdapter(mAdapter);

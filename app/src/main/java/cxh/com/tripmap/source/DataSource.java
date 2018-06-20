@@ -31,7 +31,6 @@ public class DataSource extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_SQL);
-        Log.i("hhh", "onCreate: data begin");
     }
 
     @Override
