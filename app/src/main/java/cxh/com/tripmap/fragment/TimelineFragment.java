@@ -111,23 +111,18 @@ public class TimelineFragment extends Fragment {
         List<LineList> list=new ArrayList<>();
         siteDao = new SiteDao(this.getContext());
         siteBeanList = siteDao.getList();
+        siteBeanList.sort(new Comparator<SiteBean>() {
+            @Override
+            public int compare(SiteBean siteBean, SiteBean t1) {
+                return siteBean.getTime().getTime() > t1.getTime().getTime() ? -1 :1;
+            }
+
+        });
         for (int i = 0; i < siteBeanList.size(); i++) {
             SiteBean tmp = siteBeanList.get(i);
 //            list.add(new LineList(FORMAT.format(tmp.getTime()),tmp.getSite()));
             list.add(new LineList(tmp.getTime(),tmp.getSite()));
         }
-//        list.sort(new Comparator<LineList>() {
-//            @Override
-//            public int compare(LineList lineList, LineList t1) {
-////                try {
-//                    return lineList.getTime().getTime() > t1.getTime().getTime() ? -1 : 1;
-////                   return FORMAT.parse(lineList.getTime()).getTime() > FORMAT.parse(t1.getTime()).getTime() ? -1 : 1;
-////                } catch (ParseException e) {
-////                    e.printStackTrace();
-////                }
-////                return 1;
-//            }
-//        });
         if(mAdapter == null) {
             mAdapter = new TimelineAdapter(this.getContext(), list);
             recyclerView.setAdapter(mAdapter);

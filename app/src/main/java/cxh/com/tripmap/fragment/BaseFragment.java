@@ -28,9 +28,10 @@ public class BaseFragment extends Fragment {
     private TextView textView;
     private SiteDao siteDao;
     private List<SiteBean> siteBeanList;
-    private boolean isGetData = false;
+//    private boolean isGetData = false;
 
     public static BaseFragment newInstance(String info) {
+        Log.e("BaseFragment","newInstance");
         Bundle args = new Bundle();
         BaseFragment fragment = new BaseFragment();
         args.putString("info", info);
@@ -41,6 +42,7 @@ public class BaseFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.e("BaseFragment","onCreateView");
         View view = inflater.inflate(R.layout.fragment_base, null);
         button = view.findViewById(R.id.button);
         textView = view.findViewById(R.id.all);
@@ -54,12 +56,39 @@ public class BaseFragment extends Fragment {
         return view;
     }
 
+//    @Override
+//    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+//        if (enter && ! isGetData) {
+//            isGetData = true;
+//            initData();
+//        } else {
+//            isGetData = false;
+//        }
+//        return super.onCreateAnimation(transit, enter, nextAnim);
+//    }
+
     @Override
     public void onStart() {
         super.onStart();
-        initData();
+//        if (!isGetData) {
+            initData();
+//            isGetData = true;
+//        }
         Log.e("BaseFragment","onStart");
     }
+
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        initData();
+//        Log.e("BaseFragment","onResume");
+//    }
+
+//    @Override
+//    public void onPause() {
+//        super.onPause();
+//        isGetData = false;
+//    }
 
     private void initData(){
         siteDao = new SiteDao(this.getContext());

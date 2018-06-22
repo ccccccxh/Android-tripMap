@@ -13,6 +13,7 @@ import java.util.List;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter{
     private final List<Fragment> mFragmentList = new ArrayList<>();
+    private int mChildCount = 0;
 
     public ViewPagerAdapter(FragmentManager manager) {
         super(manager);
@@ -27,6 +28,16 @@ public class ViewPagerAdapter extends FragmentPagerAdapter{
     public int getCount() {
         return mFragmentList.size();
     }
+
+//    @Override
+//    public int getItemPosition(Object object) {
+//    //刷新问题
+//        if(mChildCount>0){
+//            mChildCount--;
+//            return POSITION_NONE;
+//        }
+//        return super.getItemPosition(object);
+//    }
 
     public void addFragment(Fragment fragment) {
         mFragmentList.add(fragment);

@@ -73,7 +73,13 @@ public class MainActivity extends AppCompatActivity {
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+                if (menuItem != null) {
+                    menuItem.setChecked(false);
+                } else {
+                    bottomNavigationView.getMenu().getItem(0).setChecked(false);
+                }
+                menuItem = bottomNavigationView.getMenu().getItem(position);
+                menuItem.setChecked(true);
             }
 
             @Override
@@ -137,5 +143,6 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(TimelineFragment.newInstance("list"));
         adapter.addFragment(BaseFragment.newInstance("more"));
         viewPager.setAdapter(adapter);
+
     }
 }
